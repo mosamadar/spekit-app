@@ -1,2 +1,4 @@
-gdal-bin
-libjasper1
+libgeos-dev
+binutils libproj-dev
+gdal-bin libgdal-dev
+python3-gdal
