@@ -15,8 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from api.views import (
+    FolderApiView,
+    DocumentApiView,
+    TopicApiView,
+    GetDesiredDocuments
+)
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),
+    path("folders/", FolderApiView.as_view(), name="folders"),
+    path("documents/", DocumentApiView.as_view(), name="documents"),
+    path("topics/", TopicApiView.as_view(), name="topics"),
+    path("find-documents/", GetDesiredDocuments.as_view(), name="find_documents"),
 ]

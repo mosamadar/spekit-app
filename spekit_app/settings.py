@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import os
+from datetime import date
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-x%j%8ss3-xpq1jr=9v(m7g2q49761y^u5m$w*i*=2*h@6@q@vl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://spekit-app.herokuapp.com/', '127.0.0.1']
 
 
 # Application definition
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -152,5 +155,48 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-GDAL_LIBRARY_PATH = config("GDAL_LIBRARY_PATH")
-GEOS_LIBRARY_PATH = config("GEOS_LIBRARY_PATH")
+# GDAL_LIBRARY_PATH = config("GDAL_LIBRARY_PATH")
+# GEOS_LIBRARY_PATH = config("GEOS_LIBRARY_PATH")
+
+
+formatted_today = date.today().strftime("%y/%m/%d")
+dir_name = f"logs/{formatted_today}/"
+Path(dir_name).mkdir(parents=True, exist_ok=True)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simpleRe": {
+            "format": "{module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "requestlogs_to_file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(
+                BASE_DIR, f"logs/{formatted_today}/requestlogs.log"
+            ),
+            "formatter": "verbose",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+
+    },
+    "loggers": {
+        "requestlogs": {
+            "handlers": ["requestlogs_to_file", "mail_admins"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    }
+
+}
