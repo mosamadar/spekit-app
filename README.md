@@ -132,6 +132,14 @@ web browser will bring up the development server. Address of the server is your 
 most likely http://127.0.0.1:8000/.
 
 
+# Run Tests #
+
+1.Run From Shell for running Database Test.  
+`python manage.py test api.tests`
+
+2.Run From Shell for running Api Test.  
+`python manage.py test api.test_views`
+
 # Deployment Guide #  
 ([Deployment doc](https://docs.google.com/document/d/1HmrH7-W-wsok7pQ45xEnvM6vvX45w50Ef2GJLR1OTs0/edit))
 

@@ -51,7 +51,7 @@ class FolderApiView(BaseAPIView):
                 message = MessageResponse.FOLDER_CREATION_ERROR.value
             return self.send_response(
                 success=True,
-                code=f"200.",
+                code=f"201.",
                 status_code=status.HTTP_201_CREATED,
                 payload={},
                 description=message,
@@ -98,7 +98,7 @@ class DocumentApiView(BaseAPIView):
                 message = MessageResponse.DOCUMENT_CREATION_ERROR.value
             return self.send_response(
                 success=True,
-                code=f"200.",
+                code=f"201.",
                 status_code=status.HTTP_201_CREATED,
                 payload={},
                 description=message,
@@ -145,7 +145,7 @@ class TopicApiView(BaseAPIView):
                 message = MessageResponse.TOPIC_CREATION_ERROR.value
             return self.send_response(
                 success=True,
-                code=f"200.",
+                code=f"201.",
                 status_code=status.HTTP_201_CREATED,
                 payload={},
                 description=message,
@@ -171,22 +171,32 @@ class GetDesiredDocuments(BaseAPIView):
 
         message = None
         if topic_name:
+            """
+                Get The topic name we got from query params from database 
+            """
             get_topic = Topic.get_topic(topic_name)
             topic_serializer = self.topic_serializer(get_topic, many=True)
 
-            available_documents = get_available_documents(topic_serializer.data)
+            """
+                Get the unique documents ids we got from topic based on topic name in query params
+            """
+            available_documents_ids = get_available_documents(topic_serializer.data)
 
             if folder_name:
-                get_documents = Document.get_desired_document(available_documents, folder_name)
+                """
+                    Get the folder we got in query params and send in the documents ids for
+                    a combined unique result
+                """
+                get_documents = Document.get_desired_document(available_documents_ids, folder_name)
                 document_serializer = self.document_serializer(get_documents, many=True)
                 message = document_serializer.data
 
             return self.send_response(
                 success=True,
-                code=f"200.",
+                code=f"201.",
                 status_code=status.HTTP_201_CREATED,
-                payload={},
-                description=message,
+                payload=message,
+                description=MessageResponse.DOCUMENTS_FOUND.value,
             )
         else:
             return self.send_response(

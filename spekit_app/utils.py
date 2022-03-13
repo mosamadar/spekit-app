@@ -11,6 +11,7 @@ class MessageResponse(enum.Enum):
     TOPIC_CREATED = "Topic created successfully."
     TOPIC_CREATION_ERROR = "Topic could not be created."
 
+    DOCUMENTS_FOUND = "Your desired documents have been found successfully."
     MISSING_PARAMS = "You are either missing topic name or folder name."
 
 
