@@ -22,7 +22,7 @@ class FolderApiView(BaseAPIView):
 
     def get(self, request, pk=None):
         """
-            Get all the folders
+            Get all the folders or a single folder
         """
         if pk:
             folder = self.queryset.objects.filter(pk=pk).first()
@@ -73,7 +73,7 @@ class DocumentApiView(BaseAPIView):
 
     def get(self, request, pk=None):
         """
-            Get all the Documents
+            Get all the Documents or a single document
         """
         if pk:
             document = self.queryset.objects.filter(pk=pk).first()
@@ -124,7 +124,7 @@ class TopicApiView(BaseAPIView):
 
     def get(self, request, pk=None):
         """
-            Get all the Topics
+            Get all the Topics or a single topic
         """
         if pk:
             topic = self.queryset.objects.filter(pk=pk).first()
@@ -189,14 +189,14 @@ class GetDesiredDocuments(BaseAPIView):
             """
                 Get the unique documents ids we got from topic based on topic name in query params
             """
-            available_documents_ids = get_topic.values_list("document", flat=True)
+            available_document_ids = get_topic.values_list("document", flat=True)
 
             if folder_name:
                 """
                     Get the folder we got in query params and send in the documents ids for
                     a combined unique result
                 """
-                get_documents = Document.get_desired_document(available_documents_ids, folder_name)
+                get_documents = Document.get_desired_document(available_document_ids, folder_name)
                 document_serializer = self.document_serializer(get_documents, many=True)
                 message = document_serializer.data
 

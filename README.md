@@ -2,13 +2,13 @@
 spekit-app Application Hosted on https://spekit-app.herokuapp.com/
 
 # Features #
-* Django 4.0
+* Django 3.1
 * Uses PIP3 for python package management
 * Postgres for database with Pyscopg2
 
 # Pre requisites #
 
-* Install Python 3.6 if not previously installed (for ubuntu 16.04).  
+* Install Python 3.9 if not previously installed (for ubuntu 16.04).  
 ```
 $ sudo add-apt-repository ppa:jonathonf/python-3.6
 $ sudo apt-get update

@@ -133,6 +133,6 @@ class Topic(Log_Created):
     @classmethod
     def get_topic(cls, topic_name):
         """
-            Create a new topic in a document within a folder
+            Filter the topic name based on search result
         """
         return cls.objects.filter(topic_name=topic_name)
