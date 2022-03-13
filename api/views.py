@@ -13,7 +13,6 @@ from api.serializers import (
 from api.baseview import BaseAPIView
 from spekit_app.utils import (
     MessageResponse,
-    get_available_documents
 )
 
 
@@ -21,12 +20,16 @@ class FolderApiView(BaseAPIView):
     queryset = Folder
     serializer_class = FolderSerializer
 
-    def get(self, request):
+    def get(self, request, pk=None):
         """
             Get all the folders
         """
-        folders = self.queryset.objects.all()
-        serializer = self.serializer_class(folders, many=True)
+        if pk:
+            folder = self.queryset.objects.filter(pk=pk).first()
+            serializer = self.serializer_class(folder, many=False)
+        else:
+            folders = self.queryset.objects.all()
+            serializer = self.serializer_class(folders, many=True)
 
         return self.send_response(
             success=True,
@@ -68,12 +71,16 @@ class DocumentApiView(BaseAPIView):
     queryset = Document
     serializer_class = DocumentSerializer
 
-    def get(self, request):
+    def get(self, request, pk=None):
         """
             Get all the Documents
         """
-        documents = self.queryset.objects.all()
-        serializer = self.serializer_class(documents, many=True)
+        if pk:
+            document = self.queryset.objects.filter(pk=pk).first()
+            serializer = self.serializer_class(document, many=False)
+        else:
+            documents = self.queryset.objects.all()
+            serializer = self.serializer_class(documents, many=True)
 
         return self.send_response(
             success=True,
@@ -115,17 +122,21 @@ class TopicApiView(BaseAPIView):
     queryset = Topic
     serializer_class = TopicsSerializer
 
-    def get(self, request):
+    def get(self, request, pk=None):
         """
             Get all the Topics
         """
-        topics = self.queryset.objects.all()
-        serializer = self.serializer_class(topics, many=True)
+        if pk:
+            topic = self.queryset.objects.filter(pk=pk).first()
+            serializer = self.serializer_class(topic, many=False)
+        else:
+            topics = self.queryset.objects.all()
+            serializer = self.serializer_class(topics, many=True)
 
         return self.send_response(
             success=True,
             payload=serializer.data,
-            description="Total Topis",
+            description="Total Topics",
             status_code=status.HTTP_200_OK,
         )
 
@@ -175,12 +186,10 @@ class GetDesiredDocuments(BaseAPIView):
                 Get The topic name we got from query params from database 
             """
             get_topic = Topic.get_topic(topic_name)
-            topic_serializer = self.topic_serializer(get_topic, many=True)
-
             """
                 Get the unique documents ids we got from topic based on topic name in query params
             """
-            available_documents_ids = get_available_documents(topic_serializer.data)
+            available_documents_ids = get_topic.values_list("document", flat=True)
 
             if folder_name:
                 """
@@ -204,4 +213,3 @@ class GetDesiredDocuments(BaseAPIView):
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                 description=MessageResponse.MISSING_PARAMS.value,
             )
-

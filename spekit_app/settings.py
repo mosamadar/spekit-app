@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x%j%8ss3-xpq1jr=9v(m7g2q49761y^u5m$w*i*=2*h@6@q@vl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['spekit-app.herokuapp.com', '127.0.0.1']
 

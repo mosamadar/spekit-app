@@ -25,7 +25,10 @@ from api.views import (
 
 urlpatterns = [
     path("folders/", FolderApiView.as_view(), name="folders"),
+    path("folders/<int:pk>", FolderApiView.as_view(), name="get-folder"),
     path("documents/", DocumentApiView.as_view(), name="documents"),
+    path("documents/<int:pk>", DocumentApiView.as_view(), name="get-document"),
     path("topics/", TopicApiView.as_view(), name="topics"),
+    path("topics/<int:pk>", TopicApiView.as_view(), name="get-topic"),
     path("find-documents/", GetDesiredDocuments.as_view(), name="find_documents"),
 ]

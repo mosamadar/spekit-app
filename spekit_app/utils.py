@@ -13,11 +13,3 @@ class MessageResponse(enum.Enum):
 
     DOCUMENTS_FOUND = "Your desired documents have been found successfully."
     MISSING_PARAMS = "You are either missing topic name or folder name."
-
-
-
-def get_available_documents(documents):
-    if documents:
-        return set(map(lambda x:x["document"], documents))
-    else:
-        return []
