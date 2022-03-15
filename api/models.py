@@ -86,7 +86,7 @@ class Document(Log_Created):
     @classmethod
     def get_desired_document(cls, ids, folder_name):
         """
-            Create a new topic in a document within a folder
+            Filter documents based on multiple document id's in a specified user search given folder
         """
         return cls.objects.filter(pk__in=ids, folder__folder_name=folder_name)
 

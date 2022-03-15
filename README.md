@@ -50,7 +50,7 @@ $  source .spekit_venv/bin/activate
 ` (spekit_venv) $ git clone <remote repository name> `
 
 Example:
-` (spekit_venv) $ git clone https://github.com/origami-studios-llc/vgps-backend.git `  
+` (spekit_venv) $ git clone https://github.com/mosamadar/spekit-app.git
 
 At this moment last actual changes in project lives in `develop` branch. If you want checkout to that branch.  
 ` (spekit_venv) $ git checkout develop`
