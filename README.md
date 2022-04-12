@@ -1,5 +1,5 @@
-# spekit_app backend
-spekit-app Application Hosted on https://spekit-app.herokuapp.com/
+# soccer backend
+soccer-app Application Hosted on https://spekit-app.herokuapp.com/
 
 # Features #
 * Django 3.1
@@ -33,30 +33,27 @@ $ sudo apt-get install libpq-dev
 
 * Create directory for development, name it anything.
 ```
-$ mkdir skepit-app
-$ cd skepit-app
+$ mkdir soccer-app
+$ cd soccer-app
 ```
 
 * When inside the directory create virtual environment, called spekit_venv in example. Then activate the environment.  
 ```
-$ virtualenv .spekit_venv
-$  source .spekit_venv/bin/activate
+$ virtualenv .soccer_venv
+$  source .soccer_venv/bin/activate
 ```  
 # Installation #
 
 1. Enter created directory for development in created virtual development environment where project files will be stored.  
-` (spekit_venv) $ cd <directory name/location> `
+` (soccer_venv) $ cd <directory name/location> `
 2. Clone branch from repository.  
-` (spekit_venv) $ git clone <remote repository name> `
+` (soccer_venv) $ git clone <remote repository name> `
 
 Example:
-` (spekit_venv) $ git clone https://github.com/mosamadar/spekit-app.git
-
-At this moment last actual changes in project lives in `develop` branch. If you want checkout to that branch.  
-` (spekit_venv) $ git checkout develop`
+` (soccer_venv) $ git clone https://github.com/mosamadar/soccer-app.git
 
 3. Install requirements  
-`sh scripts/install_requirements.sh`
+pip install -r install_requirements.sh`
 4. Installing the Geospatial Libraries (GEOS, GDAL and PROJ.4) Only for UBUNTU
   
 ([help link for differetn OS](https://www.techiediaries.com/django-gis-geodjango/))
@@ -82,7 +79,7 @@ postgres=# CREATE DATABASE spekit_db;
 
 postgres=# CREATE ROLE ROLE_NAME WITH ENCRYPTED PASSWORD SET_PASSWD;
 
-postgres=# GRANT ALL PRIVILEGES ON DATABASE spekit_db TO ROLE_NAME;
+postgres=# GRANT ALL PRIVILEGES ON DATABASE soccer_db TO ROLE_NAME;
 
 postgres=# ALTER ROLE ROLE_NAME WITH LOGIN;
 
@@ -104,7 +101,7 @@ spekit_db
 
 6. Set the shell environment variables, Write the following commands in bash Shell
 ```
-export PG_DB_NAME='skepit_db'
+export PG_DB_NAME='soccer_app'
 export PG_USER=ROLE_NAME 
 export PG_PASSWD=SET_PASSWE  
 export PG_HOST='localhost'  

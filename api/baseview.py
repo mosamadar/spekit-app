@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.status import is_server_error
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 
 class BaseAPIView(APIView):
@@ -10,7 +11,7 @@ class BaseAPIView(APIView):
     Base class for API views.
     """
     # authentication_classes = ()
-    #permission_classes = []
+    permission_classes = (IsAuthenticated,)
 
     def send_response(
         self,

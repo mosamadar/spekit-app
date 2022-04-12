@@ -1,4 +1,4 @@
-"""spekit_app URL Configuration
+"""soccer_app URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -14,21 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path
 from api.views import (
-    FolderApiView,
-    DocumentApiView,
-    TopicApiView,
-    GetDesiredDocuments
+    TeamApiView,
+    PlayerApiView,
+    TransferPlayer,
+    GetPlayerTransferList,
+    BuyPlayer
 )
 
 
 urlpatterns = [
-    path("folders/", FolderApiView.as_view(), name="folders"),
-    path("folders/<int:pk>", FolderApiView.as_view(), name="get-folder"),
-    path("documents/", DocumentApiView.as_view(), name="documents"),
-    path("documents/<int:pk>", DocumentApiView.as_view(), name="get-document"),
-    path("topics/", TopicApiView.as_view(), name="topics"),
-    path("topics/<int:pk>", TopicApiView.as_view(), name="get-topic"),
-    path("find-documents/", GetDesiredDocuments.as_view(), name="find_documents"),
+    re_path(r'^team/$', TeamApiView.as_view(), name='get-teams'),
+    path("team/<int:pk>", TeamApiView.as_view(), name="update-team"),
+    re_path(r'^player/$', PlayerApiView.as_view(), name="get-player"),
+    path("player/<int:pk>", PlayerApiView.as_view(), name="update-player"),
+    path("transfer-player/", TransferPlayer.as_view(), name="transfer-player"),
+    path("transfer-list/", GetPlayerTransferList.as_view(), name="transfer-list"),
+    path("buy-player/", BuyPlayer.as_view(), name="buy-player"),
 ]
