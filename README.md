@@ -131,11 +131,12 @@ most likely http://127.0.0.1:8000/.
 
 # Run Tests #
 
-1.Run From Shell for running Database Test.  
-`python manage.py test api.tests`
+1.Run From Shell for running Database API and Model Test.  
+`API TEST (python manage.py test api.test_api)`
+`MODEL TEST (python manage.py test api.test_model)`
 
-2.Run From Shell for running Api Test.  
-`python manage.py test api.test_views`
+2.Run From Shell for running USER Tests.  
+`python manage.py test users`
 
 # Deployment Guide #  
 ([Deployment doc](https://docs.google.com/document/d/1HmrH7-W-wsok7pQ45xEnvM6vvX45w50Ef2GJLR1OTs0/edit))

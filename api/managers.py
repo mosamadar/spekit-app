@@ -1,4 +1,5 @@
 from django.db import models
+from soccer_app.utils import MessageResponse
 
 
 class PlayersManager(models.Manager):
@@ -14,4 +15,4 @@ class TransferManager(models.Manager):
 
     def get_new_transferred(self):
         """Returns only players which are new on transfer list'."""
-        return self.filter(status="New")
+        return self.filter(status=MessageResponse.NEW.value)

@@ -7,7 +7,7 @@ from api.models import (
 )
 from django.db import transaction
 import random
-from soccer_app.utils import create_players
+from soccer_app.utils import MessageResponse, create_players
 
 
 class TeamSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -34,6 +34,9 @@ class TeamSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
+        """
+            Create a specific team by admin
+        """
         user = self.context.get('user')
         team_name = validated_data.get('team_name')
         country = validated_data.get('team_country')
@@ -163,7 +166,7 @@ class BuyPlayerSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerialize
         if user.teams.additional_resource > asking_price:
             with transaction.atomic():
                 """
-                    Add random player market_value based on value
+                    Add random player market_value based on requirements
                 """
                 player_value = random.randint(10, 100)
                 """
@@ -184,11 +187,11 @@ class BuyPlayerSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerialize
                 )
                 """
                    Set transfer list status from open(New) to
-                   (Transferred) closed.
+                   closed(Transferred).
                 """
                 try:
                     get_list_id = TransferList.objects.get(player=player)
-                    TransferList.transfer_status(get_list_id, "Transferred")
+                    TransferList.transfer_status(get_list_id, MessageResponse.TRANSFERRED.value)
                 except Exception as e:
                     raise e
             return get_list_id

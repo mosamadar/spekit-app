@@ -1,4 +1,4 @@
-# Create your tests here.
+# Create your test_api here.
 from django.urls import reverse
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
@@ -10,7 +10,7 @@ class AccountsTest(APITestCase):
         self.test_user = User.objects.create_user('testuser', 'test@example.com', 'testpassword')
 
         # URL for creating an account.
-        self.create_url = reverse('account-create')
+        self.create_url = reverse('sign_up_user')
 
     def test_create_user(self):
         """
@@ -19,7 +19,8 @@ class AccountsTest(APITestCase):
         data = {
             'username': 'usama',
             'email': 'usama.dar@etc.com',
-            'password': '123456@1'
+            'password': '123456@1',
+            'country': 'test',
         }
 
         response = self.client.post(self.create_url , data, format='json')
@@ -41,7 +42,8 @@ class AccountsTest(APITestCase):
         data = {
             'username': 'usama',
             'email': 'usama.dar@etc.com',
-            'password': '123'
+            'password': '123',
+            'country': 'Test'
         }
 
         response = self.client.post(self.create_url, data, format='json')
@@ -53,7 +55,8 @@ class AccountsTest(APITestCase):
         data = {
             'username': 'usama',
             'email': 'usama.dar@etc.com',
-            'password': ''
+            'password': '',
+            'country': 'Test'
         }
 
         response = self.client.post(self.create_url, data, format='json')
@@ -65,19 +68,21 @@ class AccountsTest(APITestCase):
         data = {
             'username': 'usama' * 30,
             'email': 'usama.dar@etc.com',
-            'password': '123456@1'
+            'password': '123456@1',
+            'country': 'Test'
         }
 
         response = self.client.post(self.create_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(User.objects.count(), 1)
-        self.assertEqual(len(response.data['username']), 1)
+        self.assertEqual(len(response.data['email']), 1)
 
     def test_create_user_with_no_username(self):
         data = {
             'username': '',
             'email': 'usama.dar@etc.com',
-            'password': '123456@1'
+            'password': '123456@1',
+            'country': 'Test'
         }
 
         response = self.client.post(self.create_url, data, format='json')
@@ -89,12 +94,13 @@ class AccountsTest(APITestCase):
         data = {
             'username': 'usama',
             'email': 'usama.dar@etc.com',
-            'password': '123456@1'
+            'password': '123456@1',
+            'country': 'Test'
         }
 
         response = self.client.post(self.create_url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(User.objects.count(), 2)
         self.assertEqual(len(response.data['username']), 1)
 
 
@@ -102,19 +108,21 @@ class AccountsTest(APITestCase):
         data = {
             'username': 'usama',
             'email': 'usama.dar@etc.com',
-            'password': '123456@1'
+            'password': '123456@1',
+            'country': 'Test'
         }
 
         response = self.client.post(self.create_url, data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(User.objects.count(), 2)
         self.assertEqual(len(response.data['email']), 1)
 
     def test_create_user_with_invalid_email(self):
         data = {
             'username': 'usama',
             'email': 'usama',
-            'passsword': '123456@1'
+            'password': '123456@1',
+            'country': 'Test'
         }
 
         response = self.client.post(self.create_url, data, format='json')
@@ -126,7 +134,8 @@ class AccountsTest(APITestCase):
         data = {
             'username': 'usama',
             'email': '',
-            'password': '123456@1'
+            'password': '123456@1',
+            'country': 'Test'
         }
 
         response = self.client.post(self.create_url, data, format='json')

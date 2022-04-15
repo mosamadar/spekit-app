@@ -25,11 +25,11 @@ from api.views import (
 
 
 urlpatterns = [
-    re_path(r'^team/$', TeamApiView.as_view(), name='get-teams'),
-    path("team/<int:pk>", TeamApiView.as_view(), name="update-team"),
-    re_path(r'^player/$', PlayerApiView.as_view(), name="get-player"),
-    path("player/<int:pk>", PlayerApiView.as_view(), name="update-player"),
-    path("transfer-player/", TransferPlayer.as_view(), name="transfer-player"),
-    path("transfer-list/", GetPlayerTransferList.as_view(), name="transfer-list"),
-    path("buy-player/", BuyPlayer.as_view(), name="buy-player"),
+    re_path(r'^team/$', TeamApiView.as_view(), name='get_teams'),
+    path("team/<int:pk>", TeamApiView.as_view(), name="update_team"),
+    re_path(r'^player/$', PlayerApiView.as_view(), name="get_player"),
+    path("player/<int:pk>", PlayerApiView.as_view(), name="update_player"),
+    path("transfer-player/", TransferPlayer.as_view(), name="transfer_player"),
+    path("transfer-list/", GetPlayerTransferList.as_view(), name="transfer_list"),
+    path("buy-player/", BuyPlayer.as_view(), name="buy_player"),
 ]

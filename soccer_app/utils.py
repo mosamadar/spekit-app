@@ -8,6 +8,8 @@ from django.utils.translation import gettext as _
 class MessageResponse(enum.Enum):
     TEAM = "Team"
     PLAYER = "Player"
+    TRANSFERRED = "Transferred"
+    NEW = "New"
 
     INDEX_FIRST = 20
     INDEX_SECOND = 15
